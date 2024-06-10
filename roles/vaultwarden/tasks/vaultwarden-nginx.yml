@@ -1,3 +1,24 @@
+- name: create server key
+  openssl_privatekey:
+    path: "{{ nginx_ssl_certificate_key }}"
+    size: 4096
+    mode: 0600
+    type: RSA
+    state: present
+
+- name: create server's certificate signing request
+  openssl_csr:
+    path: /etc/stunnel/redis-server.csr
+    privatekey_path: /etc/stunnel/redis-server.key
+
+- name: create server's certificate
+  openssl_certificate:
+    provider: selfsigned
+    selfsigned_not_after: "+3650d"
+    path: /etc/stunnel/redis-server.crt
+    privatekey_path: /etc/stunnel/redis-server.key
+    csr_path: /etc/stunnel/redis-server.csr
+
 - name: install nginx
   yum:
     name: nginx
@@ -8,3 +29,18 @@
     name: nginx
     state: started
     enable: true
+
+- name: remove nginx default config
+  file:
+    path: /etc/nginx/conf.d/default.conf
+    state: absent
+  notify: restart nginx
+
+- name: copy nginx config
+  template:
+    src: vaultwarden.duongdx.com.conf
+    dest: /etc/nginx/conf.d/
+    mode: 0644
+    user: root
+    group: root
+  notify: restart nginx

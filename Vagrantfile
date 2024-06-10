@@ -1,5 +1,4 @@
 # NUM_OBSERVER_NODE = 1
-NUM_SLAVE_NODE = 2
 IP_NW = "192.168.56."
 
 SLAVE_IP_START = 89
@@ -8,29 +7,15 @@ Vagrant.configure("2") do |config|
   config.vm.box = "geerlingguy/centos7"
   config.vm.box_check_update = false
 
-  config.vm.define "observer" do |node|
+  config.vm.define "docker" do |node|
       node.vm.provider "virtualbox" do |vb|
-        vb.name = "observer"
+        vb.name = "docker"
         # vb.memory = 512
         # vb.cpus = 0.5
       end
-      node.vm.synced_folder "roles/observer/files/prometheus/rules", "/srv/prometheus/rules", :mount_options => ["dmode=777", "fmode=666"]
-      node.vm.hostname = "observer"
-      node.vm.network :private_network, ip: "192.168.56.88"
-      node.vm.network "forwarded_port", guest: 22, host: 12798
-  end
-
-  (1..NUM_SLAVE_NODE).each do |i|
-    config.vm.define "slave0#{i}" do |node|
-      node.vm.provider "virtualbox" do |vb|
-        vb.name = "slave0#{i}"
-        vb.memory = 1024    
-        vb.cpus = 1
-      end
-      node.vm.hostname = "slave0#{i}"
-      node.vm.network :private_network, ip: IP_NW + "#{SLAVE_IP_START + i}"
-      node.vm.network "forwarded_port", guest: 22, host: "#{2210 + i}"
-    end
+      node.vm.hostname = "docker"
+      node.vm.network :private_network, ip: "192.168.56.222"
+      node.vm.network "forwarded_port", guest: 22, host: 12988
   end
 
   config.vm.provision "setup-deployment-user", type: "shell" do |s|

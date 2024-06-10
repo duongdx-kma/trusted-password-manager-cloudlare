@@ -1,4 +1,4 @@
-- name: vaultwarden:
+- name: vaultwarden stack
   host: observer_servers
   become: yes
   tags:

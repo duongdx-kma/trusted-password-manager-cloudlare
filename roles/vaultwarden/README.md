@@ -1,20 +1,23 @@
 Observer role
 =========
 
-We will run prometheus, grafana, alter-manager as docker container. Then for prerequisite we must install docker first 
+We will run vaultwarden as docker container
 
 Role Variables
 --------------
-prometheus_version: `string` the prometheus version
-grafana_version: `string` the grafana version
-alertmanager_version: `string` the alertmanager version
-alertmanagers_endpoint: `string` the alert manager endpoint (only hostname and port)
-prometheus_endpoint: `string` the prometheus endpoint (only http://hostname and http://hostname:port)
-discord_webhook_url: `string` the Discord webhook
+vaultwarden_version: `string` the vaultwarden version
+nginx_ssl_certificate_key: `string` certificate key path
+nginx_ssl_csr: `string` certificate signing request path
+nginx_ssl_certificate: `string` certificate path
 
-telegraf_host: `map[string]` The list of telegraf hosts
+smtp_host: `string` smtp host
+smtp_from: `string` smtp from
+smtp_port: `string` smtp server port
+smtp_security: `string` smtp server port
+auth_username: `string` username
+auth_password: `string` password
 
-node_host: `map[string]` The list of node_exporter hosts
+
 
 Dependencies
 ------------
