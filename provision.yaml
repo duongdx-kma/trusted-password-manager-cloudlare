@@ -1,0 +1,10 @@
+- name: vaultwarden:
+  host: observer_servers
+  become: yes
+  tags:
+    - vaultwarden
+  roles:
+    - docker
+    - vaultwarden
+
+# https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/deploy-tunnels/deployment-guides/ansible/

@@ -1,0 +1,46 @@
+---
+#######################################
+# install and update pip
+#######################################
+- name: Update YUM cache
+  yum:
+    name: '*'
+    state: latest
+
+- name: install python-pip
+  yum:
+    name: python-docker
+    state: present
+
+#######################################
+# tasks file for observer
+#######################################
+- name: Create Folder /srv/prometheus if not exist
+  file:
+    path: /srv/prometheus
+    mode: 0755
+    state: directory
+
+#######################################
+# start docker containers
+#######################################
+- name: Create Prometheus container
+  docker_container:
+    name: prometheus
+    restart_policy: always
+    image: prom/prometheus:{{ prometheus_version }}
+    restart: true # restart container
+    volumes:
+      - /srv/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - /srv/prometheus/file_sd.yml:/etc/prometheus/file_sd.yml
+      - /srv/prometheus/rules:/etc/prometheus/rules
+      - prometheus_main_data:/prometheus
+    command: >
+      --config.file=/etc/prometheus/prometheus.yml
+      --storage.tsdb.path=/prometheus
+      --web.console.libraries=/etc/prometheus/console_libraries
+      --web.console.templates=/etc/prometheus/consoles
+      --web.enable-lifecycle
+    env:
+      TZ: "Asia/Ho_Chi_Minh"
+    published_ports: "9090:9090"
