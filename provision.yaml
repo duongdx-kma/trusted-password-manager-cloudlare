@@ -1,10 +1,24 @@
 - name: vaultwarden stack
-  host: observer_servers
+  hosts: docker
   become: yes
   tags:
     - vaultwarden
   roles:
     - docker
     - vaultwarden
+- name: create cloudflare dns record
+  become: false
+  hosts: localhost
+  tasks:
+  - name: Create DNS records
+    community.general.cloudflare_dns:
+        zone: "duongdx.com"
+        type: "CNAME"
+        record: "vaultwarden"
+        content: "proxy.duongdx.com"
+        proxied: "false"
+        ttl: "3600"
+        api_token: "{{ cloudflare_api_token }}"
+        state: present
 
 # https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/deploy-tunnels/deployment-guides/ansible/

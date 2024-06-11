@@ -1,7 +1,9 @@
 ---
-# defaults file for observer
+# defaults file for vaultwarden
 vaultwarden_version: 1.30.5
+vaultwarden_volume_path: /data/vaultwarden-data
 
+nginx_ssl_path: /etc/nginx/ssl
 nginx_ssl_certificate_key: /etc/nginx/ssl/self.key
 nginx_ssl_csr: /etc/nginx/ssl/self.csr
 nginx_ssl_certificate: /etc/nginx/ssl/self.crt

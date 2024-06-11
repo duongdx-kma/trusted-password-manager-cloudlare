@@ -1,0 +1,11 @@
+- include_tasks: vaultwarden.yml
+  tags:
+    - vaultwarden
+
+- include_tasks: vaultwarden-nginx.yml
+  tags:
+    - vaultwarden-nginx
+
+- include_tasks: vaultwarden-backup.yml
+  tags:
+    - vaultwarden-backup

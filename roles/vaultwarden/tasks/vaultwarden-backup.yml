@@ -1,6 +1,6 @@
 - name: install sqlite3
   yum:
-    name: sqlite3
+    name: sqlite
     state: present
 
 - name: create backup folder
@@ -12,18 +12,19 @@
     group: root
 
 - name: passing vaultwarden-backup.service
-  copy:
-    src: vaultwarden-backup.service
+  template:
+    src: vaultwarden-backup.service.j2
     dest: /etc/systemd/system/vaultwarden-backup.service
     owner: root
     group: root
     mode: 0644
+  notify: restart vaultwarden-backup.service
 
 - name: start vaultwarden-backup.service
   service:
     name: vaultwarden-backup
     state: started
-    enable: true
+    enabled: true
 
 - name: vaultwarden-backup.timer
   copy:
@@ -32,9 +33,10 @@
     owner: root
     group: root
     mode: 0644
+  notify: restart vaultwarden-backup.timer
 
 - name: start vaultwarden-backup.timer
   service:
     name: vaultwarden-backup.timer
     state: started
-    enable: true
+    enabled: true

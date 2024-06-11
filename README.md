@@ -5,7 +5,7 @@
 
 ```
 # command:
-./vaultwarden hash "your_admin_token"
+./vaultwarden hash "Digidinos@1102"
 
 # Result:
 ADMIN_TOKEN="$argon2id$v=19$m=4096,t=3,p=4$WDRFTDFnUDljQk1OSVEyNnhhYy9hemt5NXNxeXJCekZOUDNnT2p2VXkzVT0$wLHUHkHeUe671zz3qQh/9Y6F07rO9vUO5DzFFZ/MTWQ"
@@ -18,7 +18,7 @@ ADMIN_TOKEN=$$argon2id$$v=19$$m=65540,t=3,p=4$$DUsO9sEkw482mRpuPPOMqb8vYkGfnxvw7
 ```
 
 # command:
-echo -n "MySecretPassword" | argon2 "$(openssl rand -base64 32)" -e -id -t 3 -p 4
+echo -n "dsfsfsddfsf" | argon2 "$(openssl rand -base64 32)" -e -id -m 16 -t 3 -p 4
 
 # Result:
 ADMIN_TOKEN="$argon2id$v=19$m=4096,t=3,p=4$WDRFTDFnUDljQk1OSVEyNnhhYy9hemt5NXNxeXJCekZOUDNnT2p2VXkzVT0$wLHUHkHeUe671zz3qQh/9Y6F07rO9vUO5DzFFZ/MTWQ"
@@ -36,5 +36,5 @@ ADMIN_TOKEN=$$argon2id$$v=19$$m=65540,t=3,p=4$$DUsO9sEkw482mRpuPPOMqb8vYkGfnxvw7
 
 > chmod +x .vault_pass.py
 
-- ### provision observer
+- ### provision stack
 > ansible-playbook provision.yaml -t vaultwarden

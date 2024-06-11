@@ -1,4 +1,4 @@
-Observer role
+Vaultwarden role
 =========
 
 We will run vaultwarden as docker container
