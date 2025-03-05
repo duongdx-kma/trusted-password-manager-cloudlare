@@ -5,7 +5,7 @@
 
 ```
 # command:
-./vaultwarden hash "Digidinos@1102"
+./vaultwarden hash "dddddd@1102"
 
 # Result:
 ADMIN_TOKEN="$argon2id$v=19$m=4096,t=3,p=4$WDRFTDFnUDljQk1OSVEyNnhhYy9hemt5NXNxeXJCekZOUDNnT2p2VXkzVT0$wLHUHkHeUe671zz3qQh/9Y6F07rO9vUO5DzFFZ/MTWQ"
